@@ -258,11 +258,12 @@ nav {
 .hero h1 span {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 52px;
-  font-weight: 400;
+  font-size: 56px;
+  font-weight: 700;
   color: var(--gold) !important;
   display: block;
   text-transform: none;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
 
 .hero-sub {
@@ -323,44 +324,43 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 320px;
+}
+
+.hslider-viewport {
+  width: 320px;
+  overflow: hidden;
+  border-radius: 16px;
 }
 
 .hslider-track {
-  position: relative;
-  width: 300px;
-  height: 380px;
+  display: flex;
+  width: calc(320px * 6);
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hslide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.8s ease;
+  width: 320px;
+  flex: 0 0 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  pointer-events: none;
-}
-
-.hslide.active {
-  opacity: 1;
-  pointer-events: auto;
+  justify-content: center;
+  padding: 20px 10px 10px;
 }
 
 .hslide-img {
-  height: 300px;
+  height: 280px;
   width: auto;
-  max-width: 280px;
+  max-width: 290px;
   object-fit: contain;
-  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.40));
-  border-radius: 10px;
+  filter: drop-shadow(0 20px 44px rgba(0,0,0,0.38));
   display: block;
 }
 
 .hslide-label {
   text-align: center;
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 .hslide-name {
@@ -378,6 +378,33 @@ nav {
   color: rgba(255,255,255,0.65);
   margin-top: 2px;
   display: block;
+}
+
+.hslider-prev, .hslider-next {
+  position: absolute;
+  top: 42%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255,255,255,0.45);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease;
+  z-index: 2;
+  line-height: 1;
+}
+
+.hslider-prev { left: -48px; }
+.hslider-next { right: -48px; }
+
+.hslider-prev:hover, .hslider-next:hover {
+  background: rgba(255,255,255,0.35);
 }
 
 .hslider-dots {
@@ -403,14 +430,20 @@ nav {
   transform: scale(1.35);
 }
 
-@media(max-width:768px){
-  .hslider-track { width: 240px; height: 320px; }
-  .hslide-img { height: 240px; max-width: 220px; }
+@media(max-width:900px){
+  .hero-slider { width: 240px; }
+  .hslider-viewport { width: 240px; }
+  .hslider-track { width: calc(240px * 6); }
+  .hslide { width: 240px; flex: 0 0 240px; padding: 12px 6px 6px; }
+  .hslide-img { height: 200px; max-width: 220px; }
+  .hslider-prev { left: -38px; }
+  .hslider-next { right: -38px; }
 }
 
 /* ===== TRUST STRIP ===== */
 .trust-strip {
-  background: var(--maroon);
+  background: var(--white);
+  border-bottom: 2px solid var(--gray-light);
   padding: 18px 20px;
 }
 
@@ -428,7 +461,7 @@ nav {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--white);
+  color: var(--maroon);
 }
 
 .trust-icon {
@@ -1278,30 +1311,26 @@ footer {
       </div>
     </div>
 
-    <div class="hero-cards fade-in-up delay-4">
-      <div class="hero-product-chip">
-        <div class="chip-icon" style="background:rgba(255,80,80,0.3)">🌶️</div>
-        <div class="chip-text"><strong>Lal Mirch</strong><span>Red Chilli</span></div>
+    <div class="hero-slider fade-in-up delay-4">
+      <div class="hslider-viewport">
+        <div class="hslider-track" id="htrack">
+          <div class="hslide"><img class="hslide-img" src="" alt="Lal Mirch"><div class="hslide-label"><strong class="hslide-name">Lal Mirch</strong><span class="hslide-sub">Red Chilli</span></div></div>
+          <div class="hslide"><img class="hslide-img" src="" alt="Haldi"><div class="hslide-label"><strong class="hslide-name">Haldi</strong><span class="hslide-sub">Turmeric</span></div></div>
+          <div class="hslide"><img class="hslide-img" src="" alt="Dhania"><div class="hslide-label"><strong class="hslide-name">Dhania</strong><span class="hslide-sub">Coriander</span></div></div>
+          <div class="hslide"><img class="hslide-img" src="" alt="Methi"><div class="hslide-label"><strong class="hslide-name">Methi</strong><span class="hslide-sub">Fenugreek</span></div></div>
+          <div class="hslide"><img class="hslide-img" src="" alt="Kali Mirch"><div class="hslide-label"><strong class="hslide-name">Kali Mirch</strong><span class="hslide-sub">Black Pepper</span></div></div>
+          <div class="hslide"><img class="hslide-img" src="" alt="Garam Masala"><div class="hslide-label"><strong class="hslide-name">Garam Masala</strong><span class="hslide-sub">Signature Blend</span></div></div>
+        </div>
       </div>
-      <div class="hero-product-chip">
-        <div class="chip-icon" style="background:rgba(255,200,0,0.3)">🌿</div>
-        <div class="chip-text"><strong>Haldi</strong><span>Turmeric</span></div>
-      </div>
-      <div class="hero-product-chip">
-        <div class="chip-icon" style="background:rgba(150,200,100,0.3)">🌾</div>
-        <div class="chip-text"><strong>Dhania</strong><span>Coriander</span></div>
-      </div>
-      <div class="hero-product-chip">
-        <div class="chip-icon" style="background:rgba(100,160,80,0.3)">🫚</div>
-        <div class="chip-text"><strong>Methi</strong><span>Fenugreek</span></div>
-      </div>
-      <div class="hero-product-chip">
-        <div class="chip-icon" style="background:rgba(60,60,60,0.5)">🫙</div>
-        <div class="chip-text"><strong>Kali Mirch</strong><span>Black Pepper</span></div>
-      </div>
-      <div class="hero-product-chip">
-        <div class="chip-icon" style="background:rgba(130,60,0,0.4)">✨</div>
-        <div class="chip-text"><strong>Garam Masala</strong><span>Signature Blend</span></div>
+      <button class="hslider-prev" onclick="prevSlide()" aria-label="Previous">&#8592;</button>
+      <button class="hslider-next" onclick="nextSlide()" aria-label="Next">&#8594;</button>
+      <div class="hslider-dots">
+        <button class="hdot active" onclick="goSlide(0)" aria-label="Lal Mirch"></button>
+        <button class="hdot" onclick="goSlide(1)" aria-label="Haldi"></button>
+        <button class="hdot" onclick="goSlide(2)" aria-label="Dhania"></button>
+        <button class="hdot" onclick="goSlide(3)" aria-label="Methi"></button>
+        <button class="hdot" onclick="goSlide(4)" aria-label="Kali Mirch"></button>
+        <button class="hdot" onclick="goSlide(5)" aria-label="Garam Masala"></button>
       </div>
     </div>
   </div>
@@ -1803,27 +1832,54 @@ function closeModal() {
 
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
 
-// â”€â”€ Hero image slider â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â”€â”€ Hero image slider (translateX) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 (function(){
   function initHeroSlider(){
     var pcards = document.querySelectorAll('.pcard');
+    var track  = document.getElementById('htrack');
     var slides = document.querySelectorAll('.hslide');
     var dots   = document.querySelectorAll('.hdot');
-    if(!slides.length || !pcards.length) return;
+    if(!track || !pcards.length) return;
+
+    // Copy product images from the product card section
     slides.forEach(function(slide, i){
-      var img = slide.querySelector('.hslide-img');
-      if(pcards[i]) img.src = pcards[i].querySelector('.pcard-photo').src;
+      var img  = slide.querySelector('.hslide-img');
+      var pcard = pcards[i];
+      if(pcard){
+        var pimg = pcard.querySelector('.pcard-photo');
+        if(pimg && pimg.src) img.src = pimg.src;
+      }
     });
+
+    var total   = slides.length;
     var current = 0;
-    var timer = setInterval(function(){ goSlide((current+1)%6); }, 3500);
+    var w       = slides[0] ? slides[0].offsetWidth || 320 : 320;
+
+    function showSlide(idx){
+      current = ((idx % total) + total) % total;
+      w = slides[0] ? slides[0].offsetWidth || 320 : 320;
+      track.style.transform = 'translateX(-' + (current * w) + 'px)';
+      dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
+    }
+
+    var timer = setInterval(function(){ showSlide(current + 1); }, 3500);
+
     window.goSlide = function(idx){
-      slides[current].classList.remove('active');
-      dots[current].classList.remove('active');
-      current = idx;
-      slides[current].classList.add('active');
-      dots[current].classList.add('active');
       clearInterval(timer);
-      timer = setInterval(function(){ goSlide((current+1)%6); }, 3500);
+      showSlide(idx);
+      timer = setInterval(function(){ showSlide(current + 1); }, 3500);
+    };
+
+    window.prevSlide = function(){
+      clearInterval(timer);
+      showSlide(current - 1);
+      timer = setInterval(function(){ showSlide(current + 1); }, 3500);
+    };
+
+    window.nextSlide = function(){
+      clearInterval(timer);
+      showSlide(current + 1);
+      timer = setInterval(function(){ showSlide(current + 1); }, 3500);
     };
   }
   if(document.readyState === 'loading'){
