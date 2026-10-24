@@ -218,10 +218,17 @@ nav {
   display: none;
 }
 
+/* Tagline strip â€” right below header */
+.hero-tagline {
+  text-align: center;
+  padding: 20px 20px 16px;
+  border-bottom: 2px solid var(--gray-light);
+}
+
 /* Full-width hero layout */
 .hero-intro {
   text-align: center;
-  padding: 36px 20px 52px;
+  padding: 28px 20px 44px;
   max-width: 760px;
   margin: 0 auto;
   position: relative;
@@ -252,23 +259,22 @@ nav {
 
 .hero h1 {
   font-family: var(--font-title);
-  font-size: 64px;
+  font-size: 52px;
   font-weight: 700;
   color: var(--maroon) !important;
   line-height: 1;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .hero h1 span {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 56px;
+  font-size: 44px;
   font-weight: 700;
-  color: var(--gold) !important;
+  color: var(--red) !important;
   display: block;
   text-transform: none;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
 
 .hero-sub {
@@ -1298,8 +1304,13 @@ footer {
 
 <!-- ===== HERO ===== -->
 <section id="home" class="hero">
+  <!-- Tagline strip â€” right below header -->
+  <div class="hero-tagline fade-in-up">
+    <h1>Pure Spices <span>Freshly Ground Every Batch</span></h1>
+  </div>
+
   <!-- Full-width product slider -->
-  <div class="hero-slider fade-in-up">
+  <div class="hero-slider fade-in-up delay-1">
     <div class="hslider-viewport" id="hviewport">
       <div class="hslider-track" id="htrack">
         <div class="hslide"><img class="hslide-img" src="" alt="Lal Mirch"><div class="hslide-label"><strong class="hslide-name">Lal Mirch</strong><span class="hslide-sub">Red Chilli Powder</span></div></div>
@@ -1322,10 +1333,9 @@ footer {
     </div>
   </div>
 
-  <!-- Brand intro -->
+  <!-- Sub-content below slider -->
   <div class="hero-intro fade-in-up delay-2">
     <div class="hero-badge">MSME Registered &middot; Gurugram, Haryana</div>
-    <h1>Pure Spices <span>Freshly Ground Every Batch</span></h1>
     <p class="hero-sub">Direct from our grinding unit in Gurugram &mdash; premium quality ground spices for homes &amp; businesses.</p>
     <div class="hero-btns">
       <a href="#products" class="btn-primary">See Our Products</a>
