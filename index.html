@@ -221,11 +221,12 @@ nav {
 /* Full-width hero layout */
 .hero-intro {
   text-align: center;
-  padding: 52px 20px 32px;
+  padding: 36px 20px 52px;
   max-width: 760px;
   margin: 0 auto;
   position: relative;
   z-index: 2;
+  border-top: 1px solid var(--gray-light);
 }
 
 .hero-badge {
@@ -347,7 +348,8 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 20px 48px;
+  padding: 20px 20px 28px;
+  background: #fff;
 }
 
 .hslide-img {
@@ -355,7 +357,7 @@ nav {
   width: auto;
   max-width: 460px;
   object-fit: contain;
-  filter: drop-shadow(0 12px 32px rgba(65,0,37,0.18));
+  mix-blend-mode: multiply;
   display: block;
 }
 
@@ -1296,19 +1298,8 @@ footer {
 
 <!-- ===== HERO ===== -->
 <section id="home" class="hero">
-  <!-- Brand intro -->
-  <div class="hero-intro fade-in-up">
-    <div class="hero-badge">MSME Registered &middot; Gurugram, Haryana</div>
-    <h1>Pure Spices <span>Freshly Ground Every Batch</span></h1>
-    <p class="hero-sub">Direct from our grinding unit in Gurugram &mdash; premium quality ground spices for homes &amp; businesses.</p>
-    <div class="hero-btns">
-      <a href="#products" class="btn-primary">See Our Products</a>
-      <a href="#contact" class="btn-outline">Wholesale Enquiry</a>
-    </div>
-  </div>
-
   <!-- Full-width product slider -->
-  <div class="hero-slider fade-in-up delay-2">
+  <div class="hero-slider fade-in-up">
     <div class="hslider-viewport" id="hviewport">
       <div class="hslider-track" id="htrack">
         <div class="hslide"><img class="hslide-img" src="" alt="Lal Mirch"><div class="hslide-label"><strong class="hslide-name">Lal Mirch</strong><span class="hslide-sub">Red Chilli Powder</span></div></div>
@@ -1328,6 +1319,17 @@ footer {
       <button class="hdot" onclick="goSlide(3)" aria-label="Methi"></button>
       <button class="hdot" onclick="goSlide(4)" aria-label="Kali Mirch"></button>
       <button class="hdot" onclick="goSlide(5)" aria-label="Garam Masala"></button>
+    </div>
+  </div>
+
+  <!-- Brand intro -->
+  <div class="hero-intro fade-in-up delay-2">
+    <div class="hero-badge">MSME Registered &middot; Gurugram, Haryana</div>
+    <h1>Pure Spices <span>Freshly Ground Every Batch</span></h1>
+    <p class="hero-sub">Direct from our grinding unit in Gurugram &mdash; premium quality ground spices for homes &amp; businesses.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">See Our Products</a>
+      <a href="#contact" class="btn-outline">Wholesale Enquiry</a>
     </div>
   </div>
 </section>
