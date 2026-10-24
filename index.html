@@ -1,0 +1,1232 @@
+<title>SRS Spices</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600;700&display=swap">
+
+<style>
+/* === DESIGN TOKENS ===
+   Layout: Full-scroll landing page — red brand hero, alternating cream/white sections, bold typography
+*/
+:root {
+  --brand:       #D10000;
+  --brand-dark:  #A80000;
+  --brand-pale:  #FFF0F0;
+  --bg:          #FFFDF9;
+  --surface:     #FBF5EE;
+  --fg:          #1A0800;
+  --fg-2:        #6B3A20;
+  --border:      #EDD9C8;
+  --white:       #FFFFFF;
+  --shadow:      rgba(26, 8, 0, 0.07);
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Jost', system-ui, sans-serif;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:       #110500;
+    --surface:  #1D0C02;
+    --fg:       #F5E6D8;
+    --fg-2:     #B07050;
+    --border:   #3A1A08;
+    --shadow:   rgba(0, 0, 0, 0.4);
+    --brand-pale: #2A0000;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:       #110500;
+  --surface:  #1D0C02;
+  --fg:       #F5E6D8;
+  --fg-2:     #B07050;
+  --border:   #3A1A08;
+  --shadow:   rgba(0, 0, 0, 0.4);
+  --brand-pale: #2A0000;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--brand); color: #fff; }
+
+img { max-width: 100%; display: block; }
+
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 3px; }
+
+/* ── LAYOUT WRAPPER ── */
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  background: var(--brand);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--brand);
+  z-index: 101;
+}
+
+.nav-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 14px;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  text-decoration: none;
+}
+
+.logo-box {
+  background: var(--white);
+  border-radius: 6px;
+  padding: 5px 10px 4px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.logo-srs {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--brand);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.logo-tag {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 7.5px;
+  color: var(--brand);
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.82);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: color .18s;
+}
+
+.nav-links a:hover { color: #fff; }
+
+.nav-cta {
+  background: rgba(255,255,255,0.14) !important;
+  border: 1.5px solid rgba(255,255,255,0.4) !important;
+  padding: 7px 18px;
+  border-radius: 100px;
+  color: #fff !important;
+  font-weight: 600 !important;
+  transition: background .18s !important;
+}
+
+.nav-cta:hover { background: rgba(255,255,255,0.24) !important; }
+
+@media (max-width: 620px) { .nav-links { display: none; } }
+
+/* ── HERO ── */
+.hero {
+  background: var(--brand);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Diagonal texture */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.025) 40px,
+    rgba(255,255,255,0.025) 80px
+  );
+  pointer-events: none;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+  padding-block: 80px;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 6px 14px;
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5.5vw, 68px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  text-wrap: balance;
+  margin-bottom: 22px;
+}
+
+.hero h1 .soft {
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.72);
+}
+
+.hero-sub {
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.75);
+  max-width: 400px;
+  margin-bottom: 38px;
+}
+
+.hero-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-white {
+  background: #fff;
+  color: var(--brand);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 13px 28px;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: box-shadow .18s, transform .15s;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+}
+
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.22); }
+
+.btn-ghost {
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 28px;
+  border: 1.5px solid rgba(255,255,255,0.45);
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color .18s, background .18s;
+}
+
+.btn-ghost:hover { border-color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.08); }
+
+/* Hero illustration — spice rows */
+.hero-art {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.spice-row {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.spice-chip {
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+  min-width: 0;
+}
+
+.sc-icon { font-size: 22px; flex-shrink: 0; }
+
+.sc-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+.sc-note {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.6);
+  white-space: nowrap;
+}
+
+.sc-red    { background: rgba(200,0,0,0.45); }
+.sc-yellow { background: rgba(200,150,0,0.45); }
+.sc-brown  { background: rgba(100,40,0,0.45); }
+.sc-green  { background: rgba(20,80,0,0.45); }
+.sc-amber  { background: rgba(160,80,0,0.45); }
+.sc-dark   { background: rgba(60,10,0,0.45); }
+
+@media (max-width: 720px) {
+  .hero-inner { grid-template-columns: 1fr; padding-block: 56px 44px; }
+  .hero-art { display: none; }
+}
+
+/* ── TRUST STRIP ── */
+.trust {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.trust-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-block: 14px;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+  gap: 4px 0;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--fg-2);
+  padding: 7px 22px;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  position: relative;
+}
+
+.trust-item + .trust-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: var(--border);
+}
+
+/* ── ABOUT ── */
+.about { padding-block: 90px; }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 12px;
+}
+
+.section-h {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.5vw, 44px);
+  font-weight: 700;
+  line-height: 1.2;
+  text-wrap: balance;
+  color: var(--fg);
+  margin-bottom: 18px;
+}
+
+.body-text {
+  font-size: 15.5px;
+  line-height: 1.78;
+  color: var(--fg-2);
+}
+
+.body-text + .body-text { margin-top: 14px; }
+
+.msme-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--brand-pale);
+  border: 1px solid rgba(209,0,0,0.18);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-top: 28px;
+}
+
+.msme-dot {
+  width: 36px;
+  height: 36px;
+  background: var(--brand);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.msme-label strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--fg);
+  letter-spacing: 0.3px;
+}
+
+.msme-label span {
+  font-size: 11px;
+  color: var(--fg-2);
+}
+
+/* About tiles */
+.about-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 140px 140px;
+  gap: 10px;
+}
+
+.atile {
+  border-radius: 18px;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.atile::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+}
+
+.atile:nth-child(1) { background: linear-gradient(145deg, #B01010 0%, #D82020 100%); }
+.atile:nth-child(2) { background: linear-gradient(145deg, #AA8500 0%, #D0A800 100%); }
+.atile:nth-child(3) {
+  background: linear-gradient(145deg, #5C2200 0%, #7A3300 100%);
+  grid-row: 1 / 3;
+  grid-column: 2;
+}
+.atile:nth-child(4) { background: linear-gradient(145deg, #145C18 0%, #1E7825 100%); }
+
+.atile-icon { font-size: 28px; margin-bottom: 6px; }
+
+.atile-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.96);
+}
+
+.atile-hint {
+  font-size: 12px;
+  color: rgba(255,255,255,0.64);
+}
+
+@media (max-width: 740px) {
+  .about-grid { grid-template-columns: 1fr; gap: 44px; }
+  .about-tiles { order: -1; grid-template-rows: 120px 120px; }
+}
+
+/* ── PRODUCTS ── */
+.products {
+  background: var(--surface);
+  padding-block: 90px;
+  border-top: 1px solid var(--border);
+}
+
+.products-head {
+  margin-bottom: 48px;
+  max-width: 460px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+}
+
+.pcard {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.pcard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px var(--shadow);
+}
+
+.pcard-img {
+  height: 124px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 46px;
+  position: relative;
+}
+
+/* Lal Mirch=red, Haldi=gold, Dhania=brown, Methi=olive-green, Kali Mirch=charcoal, Garam Masala=dark brown */
+.pcard:nth-child(1) .pcard-img { background: linear-gradient(145deg, #C02020 0%, #E03030 100%); }
+.pcard:nth-child(2) .pcard-img { background: linear-gradient(145deg, #C09500 0%, #E0B500 100%); }
+.pcard:nth-child(3) .pcard-img { background: linear-gradient(145deg, #7A4A10 0%, #9A5A18 100%); }
+.pcard:nth-child(4) .pcard-img { background: linear-gradient(145deg, #4A6010 0%, #607820 100%); }
+.pcard:nth-child(5) .pcard-img { background: linear-gradient(145deg, #282828 0%, #3C3C3C 100%); }
+.pcard:nth-child(6) .pcard-img { background: linear-gradient(145deg, #5C2A00 0%, #7A3A00 100%); }
+
+.pcard-body { padding: 16px 18px 20px; }
+
+.pcard-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 5px;
+}
+
+.pcard-desc {
+  font-size: 12.5px;
+  color: var(--fg-2);
+  line-height: 1.55;
+}
+
+.products-note {
+  margin-top: 32px;
+  font-size: 13px;
+  color: var(--fg-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── WHY ── */
+.why { padding-block: 90px; }
+
+.why-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 52px;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.wcard {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 30px 26px;
+  background: var(--bg);
+}
+
+.wcard-icon {
+  width: 52px;
+  height: 52px;
+  background: var(--brand);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+
+.wcard-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 9px;
+  line-height: 1.25;
+}
+
+.wcard-desc {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--fg-2);
+}
+
+@media (max-width: 700px) {
+  .why-grid { grid-template-columns: 1fr; }
+}
+
+/* ── CONTACT ── */
+.contact {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding-block: 90px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 72px;
+  align-items: start;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 32px;
+}
+
+.citem {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.citem-icon {
+  width: 42px;
+  height: 42px;
+  background: var(--brand);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.citem-body strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--fg-2);
+  margin-bottom: 4px;
+}
+
+.citem-body p, .citem-body span {
+  font-size: 15.5px;
+  color: var(--fg);
+  line-height: 1.55;
+  font-weight: 500;
+  user-select: text;
+}
+
+/* Enquiry form */
+.enquiry-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 36px 32px;
+}
+
+.form-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 24px;
+}
+
+.fgroup { margin-bottom: 16px; }
+
+.fgroup label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  margin-bottom: 6px;
+}
+
+.fgroup input,
+.fgroup textarea,
+.fgroup select {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color .18s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.fgroup input:focus,
+.fgroup textarea:focus,
+.fgroup select:focus { border-color: var(--brand); }
+
+.fgroup textarea { resize: vertical; min-height: 90px; }
+
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+.fsub {
+  width: 100%;
+  margin-top: 6px;
+  padding: 14px;
+  background: var(--brand);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background .18s, transform .15s;
+}
+
+.fsub:hover { background: var(--brand-dark); transform: translateY(-1px); }
+
+.form-ok {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.form-ok-icon { font-size: 48px; margin-bottom: 14px; }
+
+.form-ok p {
+  font-size: 15.5px;
+  color: var(--fg-2);
+  line-height: 1.65;
+}
+
+@media (max-width: 740px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+  .frow { grid-template-columns: 1fr; }
+  .enquiry-box { padding: 26px 20px; }
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--brand);
+  padding-block: 48px 28px;
+}
+
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  margin-bottom: 22px;
+}
+
+.footer-about p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-top: 12px;
+  max-width: 230px;
+}
+
+.footer-logo-box {
+  background: rgba(255,255,255,0.15);
+  border-radius: 6px;
+  padding: 5px 10px 4px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.footer-logo-srs {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.footer-logo-tag {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 7.5px;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.footer-col h4 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 16px;
+}
+
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+.footer-col a {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+  transition: color .15s;
+}
+
+.footer-col a:hover { color: #fff; }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-bottom p {
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.48);
+}
+</style>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-wrap">
+    <a href="#" class="logo" aria-label="SRS Spices">
+      <div class="logo-box">
+        <span class="logo-srs">SRS</span>
+        <span class="logo-tag">Spices</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#contact" class="nav-cta">Enquire Now</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-kicker">MSME Registered · Gurugram, Haryana</span>
+      <h1>Pure Spices,<br><span class="soft">Freshly Ground</span><br>Every Batch.</h1>
+      <p class="hero-sub">SRS Spices manufactures and supplies premium quality ground spices and masala blends — direct from our unit in Gurugram to your kitchen or business.</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn-white">See Our Products</a>
+        <a href="#contact" class="btn-ghost">Wholesale Enquiry</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="spice-row">
+        <div class="spice-chip sc-red">
+          <span class="sc-icon">🌶️</span>
+          <div><p class="sc-name">Red Chilli</p><p class="sc-note">Bold heat</p></div>
+        </div>
+        <div class="spice-chip sc-yellow">
+          <span class="sc-icon">🌼</span>
+          <div><p class="sc-name">Turmeric</p><p class="sc-note">Golden haldi</p></div>
+        </div>
+      </div>
+      <div class="spice-row">
+        <div class="spice-chip sc-brown">
+          <span class="sc-icon">🌿</span>
+          <div><p class="sc-name">Coriander</p><p class="sc-note">Earthy dhania</p></div>
+        </div>
+        <div class="spice-chip sc-green">
+          <span class="sc-icon">🍃</span>
+          <div><p class="sc-name">Methi</p><p class="sc-note">Fenugreek</p></div>
+        </div>
+      </div>
+      <div class="spice-row">
+        <div class="spice-chip sc-dark">
+          <span class="sc-icon">🫙</span>
+          <div><p class="sc-name">Garam Masala</p><p class="sc-note">Signature blend</p></div>
+        </div>
+        <div class="spice-chip sc-amber">
+          <span class="sc-icon">⚫</span>
+          <div><p class="sc-name">Kali Mirch</p><p class="sc-note">Black pepper</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="trust-inner">
+    <span class="trust-item">🏆 MSME Certified</span>
+    <span class="trust-item">🌿 100% Natural</span>
+    <span class="trust-item">🏭 Own Manufacturing</span>
+    <span class="trust-item">📦 Wholesale &amp; Retail</span>
+    <span class="trust-item">🛒 E-Commerce Ready</span>
+    <span class="trust-item">📍 Gurugram, Haryana</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <p class="eyebrow">About Us</p>
+        <h2 class="section-h">Rooted in Flavour,<br>Built on Trust</h2>
+        <p class="body-text">SRS Spices is a MSME-registered manufacturing enterprise based in Palam Vihar, Gurugram. We grind and process premium quality spices in our own unit — giving us full control over purity, hygiene, and freshness from raw material to final pack.</p>
+        <p class="body-text">Founded in October 2026, we serve retail customers directly through e-commerce and supply bulk orders to businesses, restaurants, and distributors across Haryana and NCR.</p>
+        <div class="msme-pill">
+          <div class="msme-dot">🏛️</div>
+          <div class="msme-label">
+            <strong>UDYAM-HR-05-0213244</strong>
+            <span>Govt. of India · MSME Micro Enterprise · Est. 22 Oct 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-tiles" aria-hidden="true">
+        <div class="atile">
+          <span class="atile-icon">🌶️</span>
+          <span class="atile-name">Red Chilli Powder</span>
+          <span class="atile-hint">Deep heat &amp; colour</span>
+        </div>
+        <div class="atile">
+          <span class="atile-icon">🌼</span>
+          <span class="atile-name">Turmeric Powder</span>
+          <span class="atile-hint">Golden &amp; healing</span>
+        </div>
+        <div class="atile">
+          <span class="atile-icon">🫙</span>
+          <span class="atile-name">Garam Masala</span>
+          <span class="atile-hint">Our signature blend</span>
+        </div>
+        <div class="atile">
+          <span class="atile-icon">🍃</span>
+          <span class="atile-name">Coriander Powder</span>
+          <span class="atile-hint">Earthy dhania</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="products-head">
+      <p class="eyebrow">Our Products</p>
+      <h2 class="section-h">Spices &amp; Masalas</h2>
+      <p class="body-text">Freshly ground in our own manufacturing unit. No fillers, no artificial colour — just pure spice, every time.</p>
+    </div>
+    <div class="products-grid">
+      <div class="pcard">
+        <div class="pcard-img">🌶️</div>
+        <div class="pcard-body">
+          <p class="pcard-name">Lal Mirch · लाल मिर्च</p>
+          <p class="pcard-desc"><strong>Red Chilli Powder</strong> · 100g<br>Intense Heat · Rich Aroma · 100% Natural · No Preservatives</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-img">🌼</div>
+        <div class="pcard-body">
+          <p class="pcard-name">Haldi · हल्दी</p>
+          <p class="pcard-desc"><strong>Turmeric Powder</strong> · 100g<br>Rich in Curcumin · 100% Natural · No Added Colours · For Cooking &amp; Wellness</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-img">🌿</div>
+        <div class="pcard-body">
+          <p class="pcard-name">Dhania · धनिया</p>
+          <p class="pcard-desc"><strong>Coriander Powder</strong> · 100g<br>Finely Ground · Aromatic &amp; Flavourful · 100% Natural · No Preservatives</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-img">🍃</div>
+        <div class="pcard-body">
+          <p class="pcard-name">Methi · मेथी</p>
+          <p class="pcard-desc"><strong>Fenugreek</strong> · 100g<br>Dried Seeds &amp; Leaves · 100% Natural · Aromatic &amp; Fresh · No Preservatives</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-img">⚫</div>
+        <div class="pcard-body">
+          <p class="pcard-name">Kali Mirch · काली मिर्च</p>
+          <p class="pcard-desc"><strong>Black Pepper Powder</strong> · 100g<br>Finely Ground · Rich Aroma · Bold Flavour · No Added Preservatives</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-img">🫙</div>
+        <div class="pcard-body">
+          <p class="pcard-name">Garam Masala · गरम मसाला</p>
+          <p class="pcard-desc"><strong>Authentic Indian Spice Blend</strong> · 100g<br>Premium Blend · Natural · No Preservatives · Crafted for Rich Flavour &amp; Aroma</p>
+        </div>
+      </div>
+    </div>
+    <p class="products-note">🛒 Available for retail orders online &amp; wholesale bulk supply — <a href="#contact" style="color: var(--brand); font-weight:600; text-decoration:none;">enquire now</a></p>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="why-head">
+      <div>
+        <p class="eyebrow">Why Choose Us</p>
+        <h2 class="section-h">The SRS Difference</h2>
+      </div>
+      <p class="body-text" style="max-width:340px; font-size:14.5px;">A small business built on quality ingredients, honest practices, and real flavour — not shortcuts.</p>
+    </div>
+    <div class="why-grid">
+      <div class="wcard">
+        <div class="wcard-icon">🏭</div>
+        <h3 class="wcard-title">Own Manufacturing Unit</h3>
+        <p class="wcard-desc">We grind and process in our own facility in Gurugram — complete quality control from raw spice to sealed pack.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-icon">🌿</div>
+        <h3 class="wcard-title">100% Pure &amp; Natural</h3>
+        <p class="wcard-desc">No artificial colours, no adulteration. Every batch uses naturally sourced ingredients for genuine spice flavour.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-icon">🏛️</div>
+        <h3 class="wcard-title">MSME Registered</h3>
+        <p class="wcard-desc">Government of India verified enterprise — UDYAM-HR-05-0213244. Shop with confidence from a legitimate business.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-icon">📦</div>
+        <h3 class="wcard-title">Wholesale Supply</h3>
+        <p class="wcard-desc">We supply retailers, restaurants, and bulk buyers across Haryana and NCR with competitive pricing and reliable delivery.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-icon">🛒</div>
+        <h3 class="wcard-title">Direct Online Orders</h3>
+        <p class="wcard-desc">Order directly via our website or WhatsApp. We deliver to your doorstep across Gurugram and nearby areas.</p>
+      </div>
+      <div class="wcard">
+        <div class="wcard-icon">💬</div>
+        <h3 class="wcard-title">Personal Attention</h3>
+        <p class="wcard-desc">A family-run business — you speak directly to us. Quick responses, custom orders, and care that larger brands don't offer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <p class="eyebrow">Get In Touch</p>
+        <h2 class="section-h">Order or Enquire</h2>
+        <p class="body-text">For retail orders, wholesale pricing, or any questions about our products — reach out directly. We respond quickly.</p>
+        <div class="contact-list">
+          <div class="citem">
+            <div class="citem-icon">📞</div>
+            <div class="citem-body">
+              <strong>Phone &amp; WhatsApp</strong>
+              <p>8929112295</p>
+            </div>
+          </div>
+          <div class="citem">
+            <div class="citem-icon">✉️</div>
+            <div class="citem-body">
+              <strong>Email</strong>
+              <p>srsspices.official@gmail.com</p>
+            </div>
+          </div>
+          <div class="citem">
+            <div class="citem-icon">🌐</div>
+            <div class="citem-body">
+              <strong>Website</strong>
+              <p>srsspices.in</p>
+            </div>
+          </div>
+          <div class="citem">
+            <div class="citem-icon">📍</div>
+            <div class="citem-body">
+              <strong>Address</strong>
+              <p>Plot No. 51, Ekta Enclave Part 2,<br>Palam Vihar Extension,<br>Gurugram, Haryana — 122017</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="enquiry-box">
+        <h3 class="form-title">Send an Enquiry</h3>
+        <form id="ef">
+          <div class="frow">
+            <div class="fgroup">
+              <label for="fn">Name</label>
+              <input type="text" id="fn" name="name" placeholder="Your full name" required>
+            </div>
+            <div class="fgroup">
+              <label for="fp">Phone</label>
+              <input type="tel" id="fp" name="phone" placeholder="Mobile number" required>
+            </div>
+          </div>
+          <div class="fgroup">
+            <label for="fe">Email</label>
+            <input type="email" id="fe" name="email" placeholder="your@email.com">
+          </div>
+          <div class="fgroup">
+            <label for="ft">Enquiry Type</label>
+            <select id="ft" name="type">
+              <option value="">Select type</option>
+              <option value="retail">Retail / Home Order</option>
+              <option value="wholesale">Wholesale / Bulk</option>
+              <option value="custom">Custom Blend</option>
+              <option value="reseller">Reseller / E-Commerce</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="fgroup">
+            <label for="fm">Message</label>
+            <textarea id="fm" name="message" placeholder="Products you need, quantities, delivery location…"></textarea>
+          </div>
+          <button type="submit" class="fsub">Send Enquiry →</button>
+        </form>
+        <div class="form-ok" id="fok">
+          <div class="form-ok-icon">✅</div>
+          <p><strong>Enquiry received!</strong><br>We will get back to you shortly on your phone number or email. Thank you for contacting SRS Spices.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-about">
+        <div class="footer-logo-box">
+          <span class="footer-logo-srs">SRS</span>
+          <span class="footer-logo-tag">Spices</span>
+        </div>
+        <p>Pure, naturally sourced spices — freshly ground and packed with authentic flavour. Serving Gurugram and beyond since 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#why">Why Choose Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">📞 8929112295</a></li>
+          <li><a href="#">✉️ srsspices.official@gmail.com</a></li>
+          <li><a href="#">📍 Gurugram, Haryana 122017</a></li>
+          <li><a href="#">🌐 srsspices.in</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 SRS Spices. All rights reserved.</p>
+      <p>MSME Reg: UDYAM-HR-05-0213244 · Gurugram, Haryana</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('ef').addEventListener('submit', function(e) {
+  e.preventDefault();
+  this.style.display = 'none';
+  document.getElementById('fok').style.display = 'block';
+});
+</script>
