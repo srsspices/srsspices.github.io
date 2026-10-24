@@ -185,10 +185,10 @@ nav {
 
 /* ===== HERO ===== */
 .hero {
-  background: var(--red);
+  background: linear-gradient(135deg, var(--maroon) 0%, #6b0033 45%, #9b1b30 100%);
   position: relative;
   overflow: hidden;
-  padding: 80px 20px 60px;
+  padding: 0;
 }
 
 .hero::before {
@@ -214,14 +214,17 @@ nav {
 }
 
 .hero-inner {
-  max-width: 1140px;
+  display: none;
+}
+
+/* Full-width hero layout */
+.hero-intro {
+  text-align: center;
+  padding: 52px 20px 32px;
+  max-width: 760px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .hero-badge {
@@ -317,67 +320,63 @@ nav {
   transform: translateY(-2px);
 }
 
-/* ===== HERO SLIDER ===== */
+/* ===== HERO SLIDER (full-width) ===== */
 .hero-slider {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 320px;
+  width: 100%;
 }
 
 .hslider-viewport {
-  width: 320px;
+  width: 100%;
   overflow: hidden;
-  border-radius: 16px;
 }
 
 .hslider-track {
   display: flex;
-  width: calc(320px * 6);
+  /* width set by JS = 100vw * 6 */
   transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hslide {
-  width: 320px;
-  flex: 0 0 320px;
+  /* width set by JS = 100vw */
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 10px 10px;
+  padding: 20px 20px 48px;
 }
 
 .hslide-img {
-  height: 280px;
+  height: 420px;
   width: auto;
-  max-width: 290px;
+  max-width: 380px;
   object-fit: contain;
-  filter: drop-shadow(0 20px 44px rgba(0,0,0,0.38));
+  filter: drop-shadow(0 24px 56px rgba(0,0,0,0.45));
   display: block;
 }
 
 .hslide-label {
   text-align: center;
-  margin-top: 16px;
+  margin-top: 20px;
 }
 
 .hslide-name {
   display: block;
   font-family: var(--font-title);
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 .hslide-sub {
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(255,255,255,0.65);
-  margin-top: 2px;
+  margin-top: 4px;
   display: block;
+  letter-spacing: 0.5px;
 }
 
 .hslider-prev, .hslider-next {
@@ -387,21 +386,20 @@ nav {
   background: rgba(255,255,255,0.18);
   border: 1.5px solid rgba(255,255,255,0.45);
   color: #fff;
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 0.3s ease;
   z-index: 2;
-  line-height: 1;
 }
 
-.hslider-prev { left: -48px; }
-.hslider-next { right: -48px; }
+.hslider-prev { left: 20px; }
+.hslider-next { right: 20px; }
 
 .hslider-prev:hover, .hslider-next:hover {
   background: rgba(255,255,255,0.35);
@@ -410,13 +408,13 @@ nav {
 .hslider-dots {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: 14px;
+  gap: 10px;
+  padding: 16px 0 24px;
 }
 
 .hdot {
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: rgba(255,255,255,0.35);
   border: none;
@@ -427,17 +425,14 @@ nav {
 
 .hdot.active {
   background: #fff;
-  transform: scale(1.35);
+  transform: scale(1.4);
 }
 
-@media(max-width:900px){
-  .hero-slider { width: 240px; }
-  .hslider-viewport { width: 240px; }
-  .hslider-track { width: calc(240px * 6); }
-  .hslide { width: 240px; flex: 0 0 240px; padding: 12px 6px 6px; }
-  .hslide-img { height: 200px; max-width: 220px; }
-  .hslider-prev { left: -38px; }
-  .hslider-next { right: -38px; }
+@media(max-width:768px){
+  .hslide-img { height: 280px; max-width: 260px; }
+  .hslide-name { font-size: 20px; }
+  .hslider-prev { left: 8px; }
+  .hslider-next { right: 8px; }
 }
 
 /* ===== TRUST STRIP ===== */
@@ -1295,43 +1290,38 @@ footer {
 
 <!-- ===== HERO ===== -->
 <section id="home" class="hero">
-  <div class="hero-inner wrap">
-    <div class="hero-text">
-      <div class="hero-badge fade-in-up">MSME Registered · Gurugram, Haryana</div>
-      <h1 class="fade-in-up delay-1">
-        Pure Spices
-        <span>Freshly Ground<br>Every Batch</span>
-      </h1>
-      <p class="hero-sub fade-in-up delay-2">
-        SRS Spices manufactures and supplies premium quality ground spices and masala blends — direct from our unit in Gurugram to your kitchen or business.
-      </p>
-      <div class="hero-btns fade-in-up delay-3">
-        <a href="#products" class="btn-primary">See Our Products</a>
-        <a href="#contact" class="btn-outline">Wholesale Enquiry</a>
+  <!-- Brand intro -->
+  <div class="hero-intro fade-in-up">
+    <div class="hero-badge">MSME Registered &middot; Gurugram, Haryana</div>
+    <h1>Pure Spices <span>Freshly Ground Every Batch</span></h1>
+    <p class="hero-sub">Direct from our grinding unit in Gurugram &mdash; premium quality ground spices for homes &amp; businesses.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">See Our Products</a>
+      <a href="#contact" class="btn-outline">Wholesale Enquiry</a>
+    </div>
+  </div>
+
+  <!-- Full-width product slider -->
+  <div class="hero-slider fade-in-up delay-2">
+    <div class="hslider-viewport" id="hviewport">
+      <div class="hslider-track" id="htrack">
+        <div class="hslide"><img class="hslide-img" src="" alt="Lal Mirch"><div class="hslide-label"><strong class="hslide-name">Lal Mirch</strong><span class="hslide-sub">Red Chilli Powder</span></div></div>
+        <div class="hslide"><img class="hslide-img" src="" alt="Haldi"><div class="hslide-label"><strong class="hslide-name">Haldi</strong><span class="hslide-sub">Turmeric Powder</span></div></div>
+        <div class="hslide"><img class="hslide-img" src="" alt="Dhania"><div class="hslide-label"><strong class="hslide-name">Dhania</strong><span class="hslide-sub">Coriander Powder</span></div></div>
+        <div class="hslide"><img class="hslide-img" src="" alt="Methi"><div class="hslide-label"><strong class="hslide-name">Methi</strong><span class="hslide-sub">Fenugreek Powder</span></div></div>
+        <div class="hslide"><img class="hslide-img" src="" alt="Kali Mirch"><div class="hslide-label"><strong class="hslide-name">Kali Mirch</strong><span class="hslide-sub">Black Pepper Powder</span></div></div>
+        <div class="hslide"><img class="hslide-img" src="" alt="Garam Masala"><div class="hslide-label"><strong class="hslide-name">Garam Masala</strong><span class="hslide-sub">Signature Blend</span></div></div>
       </div>
     </div>
-
-    <div class="hero-slider fade-in-up delay-4">
-      <div class="hslider-viewport">
-        <div class="hslider-track" id="htrack">
-          <div class="hslide"><img class="hslide-img" src="" alt="Lal Mirch"><div class="hslide-label"><strong class="hslide-name">Lal Mirch</strong><span class="hslide-sub">Red Chilli</span></div></div>
-          <div class="hslide"><img class="hslide-img" src="" alt="Haldi"><div class="hslide-label"><strong class="hslide-name">Haldi</strong><span class="hslide-sub">Turmeric</span></div></div>
-          <div class="hslide"><img class="hslide-img" src="" alt="Dhania"><div class="hslide-label"><strong class="hslide-name">Dhania</strong><span class="hslide-sub">Coriander</span></div></div>
-          <div class="hslide"><img class="hslide-img" src="" alt="Methi"><div class="hslide-label"><strong class="hslide-name">Methi</strong><span class="hslide-sub">Fenugreek</span></div></div>
-          <div class="hslide"><img class="hslide-img" src="" alt="Kali Mirch"><div class="hslide-label"><strong class="hslide-name">Kali Mirch</strong><span class="hslide-sub">Black Pepper</span></div></div>
-          <div class="hslide"><img class="hslide-img" src="" alt="Garam Masala"><div class="hslide-label"><strong class="hslide-name">Garam Masala</strong><span class="hslide-sub">Signature Blend</span></div></div>
-        </div>
-      </div>
-      <button class="hslider-prev" onclick="prevSlide()" aria-label="Previous">&#8592;</button>
-      <button class="hslider-next" onclick="nextSlide()" aria-label="Next">&#8594;</button>
-      <div class="hslider-dots">
-        <button class="hdot active" onclick="goSlide(0)" aria-label="Lal Mirch"></button>
-        <button class="hdot" onclick="goSlide(1)" aria-label="Haldi"></button>
-        <button class="hdot" onclick="goSlide(2)" aria-label="Dhania"></button>
-        <button class="hdot" onclick="goSlide(3)" aria-label="Methi"></button>
-        <button class="hdot" onclick="goSlide(4)" aria-label="Kali Mirch"></button>
-        <button class="hdot" onclick="goSlide(5)" aria-label="Garam Masala"></button>
-      </div>
+    <button class="hslider-prev" onclick="prevSlide()" aria-label="Previous">&#8592;</button>
+    <button class="hslider-next" onclick="nextSlide()" aria-label="Next">&#8594;</button>
+    <div class="hslider-dots">
+      <button class="hdot active" onclick="goSlide(0)" aria-label="Lal Mirch"></button>
+      <button class="hdot" onclick="goSlide(1)" aria-label="Haldi"></button>
+      <button class="hdot" onclick="goSlide(2)" aria-label="Dhania"></button>
+      <button class="hdot" onclick="goSlide(3)" aria-label="Methi"></button>
+      <button class="hdot" onclick="goSlide(4)" aria-label="Kali Mirch"></button>
+      <button class="hdot" onclick="goSlide(5)" aria-label="Garam Masala"></button>
     </div>
   </div>
 </section>
@@ -1853,18 +1843,19 @@ function closeModal() {
 
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
 
-// â”€â”€ Hero image slider (translateX) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â”€â”€ Hero image slider â€” full-width (translateX) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 (function(){
   function initHeroSlider(){
     var pcards = document.querySelectorAll('.pcard');
     var track  = document.getElementById('htrack');
+    var vp     = document.getElementById('hviewport');
     var slides = document.querySelectorAll('.hslide');
     var dots   = document.querySelectorAll('.hdot');
     if(!track || !pcards.length) return;
 
     // Copy product images from the product card section
     slides.forEach(function(slide, i){
-      var img  = slide.querySelector('.hslide-img');
+      var img   = slide.querySelector('.hslide-img');
       var pcard = pcards[i];
       if(pcard){
         var pimg = pcard.querySelector('.pcard-photo');
@@ -1874,33 +1865,42 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); }
 
     var total   = slides.length;
     var current = 0;
-    var w       = slides[0] ? slides[0].offsetWidth || 320 : 320;
+
+    function getW(){ return vp ? vp.offsetWidth : window.innerWidth; }
+
+    function sizeTracks(){
+      var w = getW();
+      track.style.width = (w * total) + 'px';
+      slides.forEach(function(s){ s.style.width = w + 'px'; });
+      track.style.transform = 'translateX(-' + (current * w) + 'px)';
+    }
 
     function showSlide(idx){
       current = ((idx % total) + total) % total;
-      w = slides[0] ? slides[0].offsetWidth || 320 : 320;
+      var w = getW();
       track.style.transform = 'translateX(-' + (current * w) + 'px)';
       dots.forEach(function(d, i){ d.classList.toggle('active', i === current); });
     }
 
-    var timer = setInterval(function(){ showSlide(current + 1); }, 3500);
+    sizeTracks();
+    window.addEventListener('resize', sizeTracks);
+
+    var timer = setInterval(function(){ showSlide(current + 1); }, 4000);
 
     window.goSlide = function(idx){
       clearInterval(timer);
       showSlide(idx);
-      timer = setInterval(function(){ showSlide(current + 1); }, 3500);
+      timer = setInterval(function(){ showSlide(current + 1); }, 4000);
     };
-
     window.prevSlide = function(){
       clearInterval(timer);
       showSlide(current - 1);
-      timer = setInterval(function(){ showSlide(current + 1); }, 3500);
+      timer = setInterval(function(){ showSlide(current + 1); }, 4000);
     };
-
     window.nextSlide = function(){
       clearInterval(timer);
       showSlide(current + 1);
-      timer = setInterval(function(){ showSlide(current + 1); }, 3500);
+      timer = setInterval(function(){ showSlide(current + 1); }, 4000);
     };
   }
   if(document.readyState === 'loading'){
