@@ -1298,7 +1298,7 @@ footer {
   letter-spacing: 0.5px;
 }
 
-/* ===== WHATSAPP FLOAT ===== */
+/* ===== WHATSAPP FLOAT + PICKER ===== */
 .wa-float {
   position: fixed;
   bottom: 28px;
@@ -1312,7 +1312,8 @@ footer {
   gap: 10px;
   padding: 13px 20px 13px 16px;
   box-shadow: 0 4px 18px rgba(37,211,102,0.45);
-  text-decoration: none;
+  border: none;
+  cursor: pointer;
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 600;
@@ -1329,6 +1330,81 @@ footer {
   .wa-float span { display: none; }
   .wa-float { padding: 14px; border-radius: 50%; }
 }
+.wa-picker-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1100;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 20px 20px 100px 20px;
+}
+.wa-picker-overlay.open { display: flex; }
+.wa-picker-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 20px 18px;
+  width: 320px;
+  max-width: 100%;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+  position: relative;
+  animation: waSlideUp 0.22s ease;
+}
+@keyframes waSlideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.wa-picker-title {
+  font-family: var(--font-title);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--maroon);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.wa-picker-sub { font-size: 12.5px; color: #888; margin-bottom: 14px; }
+.wa-picker-close {
+  position: absolute;
+  top: 8px; right: 12px;
+  background: none; border: none;
+  font-size: 22px; color: #aaa; cursor: pointer; line-height: 1;
+}
+.wa-prod-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  background: var(--gray-bg,#FAF3E8);
+  border: 1.5px solid var(--gray-light,#EFE3D0);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+  font-family: var(--font-body);
+}
+.wa-prod-btn:last-of-type { margin-bottom: 0; }
+.wa-prod-btn:hover { border-color: #25D366; background: #f0fdf4; }
+.wa-prod-icon {
+  width: 36px; height: 36px;
+  background: #25D366; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 18px;
+}
+.wa-prod-name { font-size: 13.5px; font-weight: 600; color: var(--maroon,#410025); display: block; }
+.wa-prod-sub  { font-size: 11.5px; color: #888; display: block; }
+.wa-general-btn {
+  width: 100%; margin-top: 10px; padding: 10px;
+  background: #25D366; color: #fff; border: none;
+  border-radius: 10px; font-family: var(--font-body);
+  font-size: 13.5px; font-weight: 600; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background 0.15s;
+}
+.wa-general-btn:hover { background: #1ebe5d; }
 </style>
 </head>
 <body>
@@ -2014,10 +2090,24 @@ function waProduct(name, sub) {
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeWAPicker(); });
 </script>
 
-<!-- WhatsApp Float -->
-<a class="wa-float" href="https://wa.me/918929112295" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+<!-- WhatsApp Float + Product Picker -->
+<button class="wa-float" onclick="openWAPicker()" aria-label="Chat on WhatsApp">
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.554 4.1 1.523 5.824L0 24l6.335-1.502A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.372l-.36-.213-3.76.892.948-3.653-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.429 0 9.818 4.388 9.818 9.818 0 5.429-4.389 9.818-9.818 9.818z"/></svg>
   <span>Chat on WhatsApp</span>
-</a>
+</button>
+<div class="wa-picker-overlay" id="waPicker" onclick="if(event.target===this)closeWAPicker()">
+  <div class="wa-picker-box">
+    <button class="wa-picker-close" onclick="closeWAPicker()">&times;</button>
+    <div class="wa-picker-title">Chat on WhatsApp</div>
+    <div class="wa-picker-sub">Select a product to discuss:</div>
+    <button class="wa-prod-btn" onclick="waProduct('Lal Mirch Powder','Red Chilli Powder')"><div class="wa-prod-icon">🌶️</div><div><span class="wa-prod-name">Lal Mirch Powder</span><span class="wa-prod-sub">Red Chilli Powder</span></div></button>
+    <button class="wa-prod-btn" onclick="waProduct('Haldi Powder','Turmeric Powder')"><div class="wa-prod-icon">🟡</div><div><span class="wa-prod-name">Haldi Powder</span><span class="wa-prod-sub">Turmeric Powder</span></div></button>
+    <button class="wa-prod-btn" onclick="waProduct('Dhania Powder','Coriander Powder')"><div class="wa-prod-icon">🌿</div><div><span class="wa-prod-name">Dhania Powder</span><span class="wa-prod-sub">Coriander Powder</span></div></button>
+    <button class="wa-prod-btn" onclick="waProduct('Methi Powder','Fenugreek Powder')"><div class="wa-prod-icon">🍃</div><div><span class="wa-prod-name">Methi Powder</span><span class="wa-prod-sub">Fenugreek Powder</span></div></button>
+    <button class="wa-prod-btn" onclick="waProduct('Kali Mirch Powder','Black Pepper Powder')"><div class="wa-prod-icon">⚫</div><div><span class="wa-prod-name">Kali Mirch Powder</span><span class="wa-prod-sub">Black Pepper Powder</span></div></button>
+    <button class="wa-prod-btn" onclick="waProduct('Garam Masala','Signature Blend')"><div class="wa-prod-icon">🫙</div><div><span class="wa-prod-name">Garam Masala</span><span class="wa-prod-sub">Signature Blend</span></div></button>
+    <button class="wa-general-btn" onclick="waProduct('','')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.554 4.1 1.523 5.824L0 24l6.335-1.502A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.372l-.36-.213-3.76.892.948-3.653-.235-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.429 0 9.818 4.388 9.818 9.818 0 5.429-4.389 9.818-9.818 9.818z"/></svg> General Enquiry</button>
+  </div>
+</div>
 </body>
 </html>
