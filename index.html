@@ -1986,7 +1986,25 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); }
   if(document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', initHeroSlider);
   } else { initHeroSlider(); }
-})();</script>
+})();
+// WhatsApp product picker
+function openWAPicker() {
+  document.getElementById('waPicker').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeWAPicker() {
+  document.getElementById('waPicker').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function waProduct(name, sub) {
+  var msg = name
+    ? 'Hello SRS Spices! I\'m interested in your *' + name + '* (' + sub + '). Please share pricing and availability.'
+    : 'Hello SRS Spices! I have a general enquiry. Please get in touch.';
+  window.open('https://wa.me/918929112295?text=' + encodeURIComponent(msg), '_blank');
+  closeWAPicker();
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeWAPicker(); });
+</script>
 
 <!-- WhatsApp Float -->
 <a class="wa-float" href="https://wa.me/918929112295" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
