@@ -2021,7 +2021,7 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); }
     slides.forEach(function(slide, i){
       if(i === 0) return;
       var img   = slide.querySelector('.hslide-img');
-      var pcard = pcards[i - 1];
+      var pcard = pcards[i];
       if(pcard && img){
         var pimg = pcard.querySelector('.pcard-photo');
         if(pimg && pimg.src) img.src = pimg.src;
